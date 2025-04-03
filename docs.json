@@ -97,24 +97,6 @@
       "x": "https://x.com/mintlify",
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
-    }
-  },
-  "search": {
-    "provider": "ai",
-    "aiFeature": true,
-    "apiKey": "YOUR_GEMINI_API_KEY",
-    "aiModel": "gemini-pro",
-    "contextPages": 10
-  },
-  "llm": {
-    "model": "gemini",
-    "apiKey": "${GEMINI_API_KEY}",
-    "ingestion": {
-      "enabled": true,
-      "excludePatterns": ["**/private/**"]
-    }
-  },
-  "seo": {
-    "indexing": "all"
+    }  
   }
 }
