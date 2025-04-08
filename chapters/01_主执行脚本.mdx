@@ -1,0 +1,159 @@
+# 第1章：主执行脚本
+
+想象一下，你正在导演一部电影。你有演员、剧本、服装和布景。但直到你这位导演喊出"开始！"之前，什么都不会发生。我们项目中的`main`执行脚本就像那位导演。它是起点，是启动整个教程生成过程的"开始！"指令。
+
+本章将引导您了解`main`脚本以及它如何协调从GitHub仓库创建教程的过程。
+
+**为什么我们需要主执行脚本？**
+
+这样想：我们想从GitHub仓库构建一个教程。我们需要：
+
+1. 知道要使用*哪个*仓库。
+2. 知道要在*哪里*保存教程。
+3. 可能需要自定义*哪些*文件包括或排除。
+
+`main`脚本处理所有这些问题。它是收集信息并启动教程生成过程的中央枢纽。
+
+**核心概念**
+
+让我们将`main`脚本分解为更简单的部分：
+
+1. **命令行参数：** 这些是您在运行程序时给出的指令。就像在餐厅点菜一样。您告诉服务员（程序）您想要什么（参数）。
+
+2. **配置：** 设置环境。这包括您的GitHub令牌（如果有）和文件包含或排除的默认设置。
+
+3. **"流程"：** 这是程序生成教程所采取的步骤序列。就像烘焙蛋糕的配方。
+
+**使用`main`脚本：一个简单示例**
+
+假设我们想为GitHub上名为"my-cool-project"的仓库生成教程。我们会这样运行程序（在您的终端中）：
+
+```bash
+python main.py https://github.com/your-username/my-cool-project
+```
+
+这里，`python main.py`告诉您的计算机运行`main.py`文件。`https://github.com/your-username/my-cool-project`是我们给程序的*参数* - GitHub仓库的URL。
+
+**当您运行此命令时会发生什么？**
+
+1. `main`脚本接收仓库URL。
+2. 它检查您是否提供了项目名称。如果没有，它会从URL中推断出来。
+3. 它设置"流程" - 创建教程所需的步骤。
+4. 它启动教程生成过程！
+
+**让我们看看一些代码！**
+
+这是`main`函数的简化版本：
+
+```python
+import argparse
+
+def main():
+    parser = argparse.ArgumentParser(description="为GitHub代码库生成教程。")
+    parser.add_argument("repo_url", help="公共GitHub仓库的URL。")
+    parser.add_argument("-o", "--output", default="output", help="输出的基本目录（默认：./output）。")
+
+    args = parser.parse_args()
+
+    print(f"为以下仓库生成教程：{args.repo_url}")
+    print(f"输出目录：{args.output}")
+
+if __name__ == "__main__":
+    main()
+```
+
+**解释：**
+
+* `import argparse`：此行导入帮助我们处理命令行参数的库。可以将其视为导入一个处理用户输入的工具箱。
+* `parser = argparse.ArgumentParser(...)`：这创建了一个参数解析器。这就像设置一个表单来收集用户信息。
+* `parser.add_argument(...)`：这些行向解析器添加特定参数。在这种情况下，我们添加仓库URL（`repo_url`）和输出目录（`output`）。
+* `args = parser.parse_args()`：此行获取用户提供的参数并将它们存储在一个名为`args`的变量中。
+* `print(f"为以下仓库生成教程：{args.repo_url}")`：此行向控制台打印一条消息，告诉您为哪个仓库生成教程。
+* `if __name__ == "__main__":`：这是Python中的标准方式，表示"如果直接执行此文件，则运行`main`函数"。
+
+**更多选项！**
+
+`main`脚本还允许您通过更多参数自定义教程生成过程。例如：
+
+* `-n`或`--name`：指定项目名称（而不是从URL派生）。
+* `-t`或`--token`：提供GitHub个人访问令牌（对于私有仓库或避免速率限制很有用）。
+* `-i`或`--include`：指定要包含的文件模式（例如，"*.py"仅包含Python文件）。
+* `-e`或`--exclude`：指定要排除的文件模式（例如，"tests/*"排除测试文件）。
+
+**深入了解：它是如何工作的**
+
+以下是`main`脚本内部发生的简化视图：
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Main Script
+    participant Argument Parser
+    participant Tutorial Flow
+
+    User->>Main Script: 运行带参数的脚本（repo_url, output_dir等）
+    Main Script->>Argument Parser: 解析参数
+    Argument Parser-->>Main Script: 返回解析后的参数
+    Main Script->>Tutorial Flow: 使用解析后的参数创建并运行流程
+    Tutorial Flow->>Main Script: 返回结果（例如，成功/失败）
+    Main Script->>User: 打印状态消息
+```
+
+**序列图解释：**
+
+1. **用户**运行`main`脚本，提供诸如仓库URL之类的参数。
+2. **主脚本**使用**参数解析器**理解这些参数。
+3. **参数解析器**将解析后的参数返回给**主脚本**。
+4. **主脚本**使用解析后的参数创建并运行**教程流程**（我们将在下一章了解这一点！）。
+5. **教程流程**完成其工作并将结果发送回**主脚本**。
+6. **主脚本**然后告诉**用户**发生了什么（例如，"教程成功生成！"）。
+
+**深入代码（文件：`main.py`）**
+
+让我们看一下`main.py`中的一个更完整的片段：
+
+```python
+import dotenv
+import os
+import argparse
+from flow import create_tutorial_flow
+
+dotenv.load_dotenv()
+
+def main():
+    parser = argparse.ArgumentParser(description="为GitHub代码库生成教程。")
+    parser.add_argument("repo_url", help="公共GitHub仓库的URL。")
+    # ... （其他参数）...
+
+    args = parser.parse_args()
+
+    github_token = args.token or os.environ.get('GITHUB_TOKEN')
+    if not github_token:
+        print("警告：未提供GitHub令牌。对于公共仓库，你可能会遇到速率限制。")
+
+    shared = {
+        "repo_url": args.repo_url,
+        # ... （其他共享数据）...
+    }
+
+    tutorial_flow = create_tutorial_flow()
+    tutorial_flow.run(shared)
+```
+
+**关键改进：**
+
+* `dotenv.load_dotenv()`：此行从`.env`文件（如果存在）加载环境变量。这是一种在脚本中存储敏感信息（如GitHub令牌）而不硬编码的便捷方式。
+* `github_token = args.token or os.environ.get('GITHUB_TOKEN')`：此行从命令行参数或环境变量中检索GitHub令牌。
+* `shared = { ... }`：这创建了一个名为`shared`的字典。这个字典将保存在教程生成过程的不同部分之间需要传递的所有信息。可以将其视为参与教程制作的每个人都可以访问的共享笔记本。
+* `tutorial_flow = create_tutorial_flow()`：此行创建教程生成流程的实例（我们将在[教程生成流程](/chapters/02_tutorial_generation_flow)中探讨这一点）。
+* `tutorial_flow.run(shared)`：此行运行教程生成流程，将`shared`字典作为输入传递。
+
+**结论**
+
+`main`执行脚本是我们教程生成管弦乐队的指挥。它接受您的指令（命令行参数），设置环境，并启动整个过程。它是从GitHub代码库创建精彩教程的重要起点。
+
+现在我们了解了`main`脚本的角色，让我们深入了解教程生成过程的核心：[教程生成流程](/chapters/02_tutorial_generation_flow)。
+
+---
+
+由 [AI 代码库知识构建器](https://github.com/The-Pocket/Tutorial-Codebase-Knowledge) 生成 
