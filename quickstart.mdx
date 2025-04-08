@@ -1,0 +1,89 @@
+---
+title: '快速开始'
+description: '在5分钟内开始构建精彩的文档'
+---
+
+## 设置您的开发环境
+
+了解如何在本地更新您的文档并将其部署到公共网络。
+
+### 编辑和预览
+
+<AccordionGroup>
+  <Accordion icon="github" title="在本地克隆您的文档">
+    在入职过程中，我们在您的Github上创建了一个包含文档内容的仓库。您可以在我们的
+    [控制面板](https://dashboard.mintlify.com)上找到这个仓库。要在本地克隆仓库，
+    请在终端中按照这些
+    [指南](https://docs.github.com/cn/repositories/creating-and-managing-repositories/cloning-a-repository)
+    操作。
+  </Accordion>
+  <Accordion icon="rectangle-terminal" title="预览更改">
+    预览帮助您确保更改的效果符合预期。我们构建了一个命令行界面来在本地渲染这些更改。
+    1. 安装
+    [Mintlify CLI](https://www.npmjs.com/package/mintlify)，使用以下命令在本地预览文档更改：``` npm i -g mintlify ```
+    2. 在文档根目录（`docs.json`所在位置）运行以下命令：``` mintlify dev ```
+    <Note>
+      如果您当前正在使用旧版```mint.json```配置文件，请更新Mintlify CLI：
+
+
+      ```npm i -g mintlify@latest```
+      并在您的文档仓库中运行新的升级命令：
+
+      ```mintlify upgrade```
+      现在您应该使用新的```docs.json```配置文件了。您可以从仓库中删除```mint.json```文件。
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+### 部署您的更改
+
+<AccordionGroup>
+
+<Accordion icon="message-bot" title="安装我们的Github应用">
+  我们的Github应用会自动将您的更改部署到文档网站，因此您不需要自己管理部署。
+  您可以在[控制面板](https://dashboard.mintlify.com)上找到安装链接。
+  一旦机器人成功安装，仓库的提交哈希旁边应该有一个对勾标记。
+</Accordion>
+<Accordion icon="rocket" title="推送您的更改">
+  [将更改提交并推送到Git](https://docs.github.com/cn/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
+  以更新您的文档网站。如果您推送后没有看到Github应用成功部署您的更改，
+  您也可以通过我们的[控制面板](https://dashboard.mintlify.com)手动更新文档。
+</Accordion>
+
+</AccordionGroup>
+
+## 更新您的文档
+
+使用MDX语法和React组件直接在文件中添加内容。您可以使用我们的任何组件，甚至可以构建自己的组件。
+
+<CardGroup>
+
+<Card title="使用MDX添加内容" icon="file" href="/essentials/markdown">
+  使用MDX语法向文档添加内容。
+</Card>
+
+<Card
+  title="添加代码块"
+  icon="square-code"
+  href="/essentials/code"
+>
+  使用语法高亮直接向文档添加代码。
+</Card>
+
+<Card
+  title="添加图片"
+  icon="image"
+  href="/essentials/images"
+>
+  向文档添加图片，使其更具吸引力。
+</Card>
+
+<Card
+  title="添加自定义组件"
+  icon="puzzle-piece"
+  href="/essentials/reusable-snippets"
+>
+  向文档添加模板，使其更具可重用性。
+</Card>
+
+</CardGroup>
