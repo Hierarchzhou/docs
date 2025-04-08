@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "aetrix",
+  "theme": "mint",
   "name": "代码库知识构建器",
   "colors": {
     "primary": "#16A34A",
@@ -16,13 +16,13 @@
           {
             "group": "教程",
             "pages": [
-              "索引",
-              "01_主执行脚本",
-              "02_教程生成流程",
-              "03_PocketFlow框架",
-              "04_GitHub文件爬虫",
-              "05_大语言模型交互工具",
-              "06_节点抽象"
+              "index",
+              "01_main_script",
+              "02_tutorial_flow",
+              "03_pocket_flow",
+              "04_github_crawler",
+              "05_llm_tools",
+              "06_node_abstraction"
             ]
           }
         ]
