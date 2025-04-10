@@ -27,10 +27,15 @@
             ]
           },
           {
-            "group": "操作指南",
+            "group": "快速开始",
             "pages": [
               "AETRIX用户指南/register-work",
-              "AETRIX用户指南/start-chat",
+              "AETRIX用户指南/start-chat"
+            ]
+          },
+          {
+            "group": "支持与反馈",
+            "pages": [
               "AETRIX用户指南/feedback"
             ]
           }
