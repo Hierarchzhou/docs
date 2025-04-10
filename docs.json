@@ -11,6 +11,32 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "AETRIX用户指南",
+        "groups": [
+          {
+            "group": "平台介绍",
+            "pages": [
+              "AETRIX用户指南/welcome"
+            ]
+          },
+          {
+            "group": "核心概念",
+            "pages": [
+              "AETRIX用户指南/concept-copyright",
+              "AETRIX用户指南/concept-chat"
+            ]
+          },
+          {
+            "group": "操作指南",
+            "pages": [
+              "AETRIX用户指南/register-work",
+              "AETRIX用户指南/start-chat",
+              "AETRIX用户指南/feedback"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Guides",
         "groups": [
           {
