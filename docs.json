@@ -2,7 +2,6 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "AETRIX",
-  "index": "AETRIX用户指南/welcome",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -17,22 +16,22 @@
           {
             "group": "入门指南",
             "pages": [
-              "AETRIX用户指南/welcome",
-              "AETRIX用户指南/concept-copyright",
-              "AETRIX用户指南/concept-chat"
+              "AETRIX/welcome",
+              "AETRIX/concept-copyright",
+              "AETRIX/concept-chat"
             ]
           },
           {
             "group": "操作指南",
             "pages": [
-              "AETRIX用户指南/register-work",
-              "AETRIX用户指南/start-chat"
+              "AETRIX/register-work",
+              "AETRIX/start-chat"
             ]
           },
           {
             "group": "支持与反馈",
             "pages": [
-              "AETRIX用户指南/feedback"
+              "AETRIX/feedback"
             ]
           }
         ]
