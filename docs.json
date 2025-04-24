@@ -11,6 +11,17 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "AETRIX 内参",
+        "groups": [
+          {
+            "group": "AETRIX 白皮书",
+            "pages": [
+              "AETRIX/面向自己"
+            ]
+          } 
+        ]
+      },
+      {
         "tab": "AETRIX 用户指南",
         "groups": [
           {
