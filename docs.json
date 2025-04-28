@@ -20,7 +20,19 @@
               "AETRIX/for_meiti",
               "AETRIX/old_and_young",
               "AETRIX/what-is-ip",
-              "AETRIX/programmable-ip-license"    
+              "AETRIX/programmable-ip-license" ,
+              "AETRIX/programmable-ip-license-en",
+              {
+                "group": "Story Protocol",
+                "pages": [
+                  "AETRIX/story-protocol-ip-blockchain",
+                  "AETRIX/ip-portal-launch",
+                  "AETRIX/story-tech-roadmap",
+                  "AETRIX/passport-20-points-guide",
+                  "AETRIX/story-incentive-program",
+                  "AETRIX/ip-token-overview"
+                ]
+              }
             ]
           } 
         ]
