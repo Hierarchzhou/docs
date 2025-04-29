@@ -104,84 +104,88 @@ www.bitcoin.org
 
 诚实的链条和攻击者链条之间的竞争可以描述为一个二项式随机游走。成功率p是诚实链条找到下一个区块的概率，而失败率q是攻击者链条找到下一个区块的概率。
 
-```math
-概率(攻击者追赶) = \sum_{k=0}^{\infty} C(n+k, k) * p^n * q^k
-```
+$$
+概率(攻击者追赶) = \sum_{k=0}^{\infty} C(n+k, k) \cdot p^n \cdot q^k
+$$
 
 给出了q < p，攻击者赶上来的概率随着交易添加到诚实链条后而指数级下降。通过在交易后等待更多区块，收款人验证其交易的可能性会呈指数级下降。
 
-> **攻击者赶上来的概率:**
+**攻击者赶上来的概率:**
 
-```math
-p = 诚实链条找到下一个区块的概率
-q = 攻击者链条找到下一个区块的概率
-qa = 攻击者份额的CPU算力
-qz = P(攻击者在 z 块后追上)
-```
+$$
+\begin{aligned}
+& p = \text{诚实链条找到下一个区块的概率} \\
+& q = \text{攻击者链条找到下一个区块的概率} \\
+& q_a = \text{攻击者份额的CPU算力} \\
+& q_z = P(\text{攻击者在 z 块后追上})
+\end{aligned}
+$$
 
 假设攻击者落后 z 个区块，他需要追上 z 个区块，同时诚实的链条仍然落后。
 
-两个块之间的期望间隔是 λ = 1/p
-攻击者发现一个块的期望时间是 1/q
-攻击者追上来的概率是当攻击者的进度（即他在追赶诚实链条所需的区块数量）减去诚实链条的进度（即他们在追赶攻击者所需的区块数量）等于 z 时，也就是当他们的位置之差等于 z 时。
+两个块之间的期望间隔是 $\lambda = 1/p$
+攻击者发现一个块的期望时间是 $1/q$
 
 这是经典的赌徒破产问题。假设一个赌徒从 z 的赤字开始，进行无限次尝试，每一次成功的概率是 p，每一次失败的概率是 q。成功的补偿是 1，失败的惩罚是 1。问的是，赌徒是否最终能达到 0 的概率是多少？
 
-赌场破产问题的概率为 q/p（如果 q <= p）。
+赌场破产问题的概率为 $q/p$（如果 $q \leq p$）。
 这里攻击者试图追赶，而不是破产。攻击者开始时落后 z，他们需要在诚实链条增长 k 个区块之前，增加 z 个区块。
-如果 q > p，攻击者迟早会追上。
-如果 q <= p，攻击者落后越多，追上的概率越低。
+如果 $q > p$，攻击者迟早会追上。
+如果 $q \leq p$，攻击者落后越多，追上的概率越低。
+
 攻击者在诚实链条增长 k 个区块之前，追上 z 个区块的概率为:
 
-```math
-P(追上 | 落后 z) = (q/p)^z
-```
+$$
+P(\text{追上} | \text{落后 z}) = (q/p)^z
+$$
 
 考虑攻击者已经落后几个区块，并且希望计算在他们重新开始工作后赶上来的概率。诚实的链条每生成一个新区块，攻击者就会落后一个区块。攻击者每找到一个新区块，就可以减小一个区块的落后。
 
-设 qz 是攻击者从落后 z 个区块追上来的概率。
+设 $q_z$ 是攻击者从落后 z 个区块追上来的概率。
 
-```math
-qz = 0  \text{ if } q >= p
-qz = 1  \text{ if } q < p
-```
+$$
+q_z = \begin{cases}
+0 & \text{if } q \geq p \\
+1 & \text{if } q < p
+\end{cases}
+$$
 
-qz 是攻击者找到下一个区块（概率 q）并将其差距缩小到 z-1 的概率，加上诚实的链条找到下一个区块（概率 p）并将其差距增加到 z+1 的概率。
+$q_z$ 是攻击者找到下一个区块（概率 q）并将其差距缩小到 z-1 的概率，加上诚实的链条找到下一个区块（概率 p）并将其差距增加到 z+1 的概率。
 
-```math
-qz = q * q(z-1) + p * q(z+1)
-```
+$$
+q_z = q \cdot q_{z-1} + p \cdot q_{z+1}
+$$
 
-加上边界条件 q0 = 1 和 qinfinity = 0。
+加上边界条件 $q_0 = 1$ 和 $q_{\infty} = 0$。
 这是一个线性递推关系。特征方程是：
 
-```math
-p * r^2 - r + q = 0
-```
+$$
+p \cdot r^2 - r + q = 0
+$$
 
 根是：
 
-```math
-r = [1 \pm \sqrt{1 - 4pq}] / 2p
-  = [1 \pm \sqrt{1 - 4p(1-p)}] / 2p
-  = [1 \pm \sqrt{(1-2p)^2}] / 2p
-  = [1 \pm (1-2p)] / 2p
-```
+$$
+\begin{aligned}
+r &= \frac{1 \pm \sqrt{1 - 4pq}}{2p} \\
+  &= \frac{1 \pm \sqrt{1 - 4p(1-p)}}{2p} \\
+  &= \frac{1 \pm \sqrt{(1-2p)^2}}{2p} \\
+  &= \frac{1 \pm (1-2p)}{2p}
+\end{aligned}
+$$
 
-所以根是 r1 = 1 和 r2 = q/p。
-一般解是 qz = A * 1^z + B * (q/p)^z。
+所以根是 $r_1 = 1$ 和 $r_2 = q/p$。
+一般解是 $q_z = A \cdot 1^z + B \cdot (q/p)^z$。
 使用边界条件：
-q0 = 1 = A + B
-qinfinity = 0 = A + B * infinity (仅当 q/p < 1 时才满足 0，即 q < p)
+$q_0 = 1 = A + B$
+$q_{\infty} = 0 = A + B \cdot \infty$ (仅当 $q/p < 1$ 时才满足 0，即 $q < p$)
 
-```math
-0 = A + 0   => A = 0
-```
+$$
+0 = A + 0 \implies A = 0
+$$
 
-如果 A=0, q0 = 1 = B。所以 B = 1。
-最终解是 qz = (q/p)^z。
-
-**Python 代码:**
+如果 $A=0$, $q_0 = 1 = B$。所以 $B = 1$。
+最终解是 $q_z = (q/p)^z$。
 
 ```python
 from math import exp, log, sqrt
@@ -198,7 +202,7 @@ def attacker_success_probability(q, z):
 
 # 测试不同 q 和 z 值
 print("Probability of attacker success:")
-print(f"q=0.1, z=0: {attacker_success_probability(0.1, 0):.6f}") # Should be 1
+print(f"q=0.1, z=0: {attacker_success_probability(0.1, 0):.6f}")  # Should be 1
 print(f"q=0.1, z=1: {attacker_success_probability(0.1, 1):.6f}")
 print(f"q=0.1, z=2: {attacker_success_probability(0.1, 2):.6f}")
 print(f"q=0.1, z=5: {attacker_success_probability(0.1, 5):.6f}")
@@ -211,11 +215,11 @@ print(f"q=0.3, z=5: {attacker_success_probability(0.3, 5):.6f}")
 print(f"q=0.3, z=10: {attacker_success_probability(0.3, 10):.6f}")
 print(f"q=0.3, z=20: {attacker_success_probability(0.3, 20):.6f}")
 
-print(f"q=0.5, z=0: {attacker_success_probability(0.5, 0):.6f}") # Should be 1
+print(f"q=0.5, z=0: {attacker_success_probability(0.5, 0):.6f}")  # Should be 1
 print(f"q=0.5, z=1: {attacker_success_probability(0.5, 1):.6f}")
 print(f"q=0.5, z=5: {attacker_success_probability(0.5, 5):.6f}")
 
-print(f"q=0.6, z=0: {attacker_success_probability(0.6, 0):.6f}") # Should be 1
+print(f"q=0.6, z=0: {attacker_success_probability(0.6, 0):.6f}")  # Should be 1
 print(f"q=0.6, z=1: {attacker_success_probability(0.6, 1):.6f}")
 print(f"q=0.6, z=5: {attacker_success_probability(0.6, 5):.6f}")
 ```
