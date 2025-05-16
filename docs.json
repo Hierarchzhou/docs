@@ -38,6 +38,19 @@
         ]
       },
       {
+        "tab": "AETRIX 核心文件",
+        "groups": [
+          {
+            "group": "核心文件",
+            "pages": [
+              "AETRIX/financing-plan",
+              "AETRIX/declaration",
+              "AETRIX/white-paper"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "AETRIX 用户指南",
         "groups": [
           {
